@@ -52,8 +52,7 @@ public class Server extends Thread {
             case LOG_OUT:
                 disconnect(stringData);
                 break;
-            case MOVE:
-            case MESSAGE:
+            default:
                 sendToClients(stringData, null);
                 break;
         }
