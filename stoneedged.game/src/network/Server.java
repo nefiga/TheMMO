@@ -1,6 +1,7 @@
 package network;
 
 import game.GameLoop;
+import network.packets.PacketType;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -45,7 +46,7 @@ public class Server extends Thread {
     public void translateData(String stringData, InetAddress IP, int port) {
 
         String type = stringData.substring(0, 2);
-        switch(Packet.PacketType.getType(type)) {
+        switch(PacketType.getType(type)) {
             case LOG_IN:
                 connect(stringData, IP, port);
                 break;

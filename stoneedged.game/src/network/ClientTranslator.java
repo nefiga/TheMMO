@@ -1,6 +1,7 @@
 package network;
 
 import game.GameLoop;
+import network.packets.Packet;
 
 public class ClientTranslator {
 
@@ -12,5 +13,9 @@ public class ClientTranslator {
 
     public void translatePacket(byte[] data) {
 
+    }
+
+    public static void sendPacket(Packet packet) {
+        byte[] data = packet.getPacketData();
     }
 }
