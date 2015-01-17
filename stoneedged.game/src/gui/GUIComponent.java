@@ -4,13 +4,13 @@ import game.Screen;
 
 public class GUIComponent {
 
-    private int width, height;
-    private int x, y;
+    protected int width, height;
+    protected int x, y;
 
-    private int[] image;
+    protected int[] image;
 
-    private boolean hasFocus;
-    private boolean isVisible;
+    protected boolean hasFocus;
+    protected boolean isVisible;
 
     public GUIComponent(int x, int y, int width, int height) {
         this.x = x;

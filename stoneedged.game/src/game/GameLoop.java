@@ -1,5 +1,7 @@
 package game;
 
+import gui.EditText;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
@@ -69,6 +71,7 @@ public class GameLoop extends Canvas implements Runnable {
 
     }
 
+    public EditText editText = new EditText(250, 250, 3, 3);
     public void render() {
         BufferStrategy bs = getBufferStrategy();
         if (bs == null) {
@@ -79,7 +82,10 @@ public class GameLoop extends Canvas implements Runnable {
         Graphics g = bs.getDrawGraphics();
 
         screen.clearScreen(230851);
-graphics.Font.drawString(screen, "Testing The Font Out", 100, 100);
+
+        editText.render(screen);
+        graphics.Font.drawString(screen, "Testing The Font Out", 100, 100);
+
         int[] screenPixels = screen.getPixels();
         for (int i = 0; i < pixels.length; i++) {
             pixels[i] = screenPixels[i];
