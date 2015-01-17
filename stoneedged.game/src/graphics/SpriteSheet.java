@@ -2,6 +2,8 @@ package graphics;
 
 public class SpriteSheet {
 
+    public static SpriteSheet spriteSheetOne = new SpriteSheet("sprite_sheet_1", 320, 320);
+
     private String spriteSheet;
 
     private int width, height;

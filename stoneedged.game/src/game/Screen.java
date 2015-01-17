@@ -1,5 +1,7 @@
 package game;
 
+import graphics.ImageUtils;
+
 public class Screen {
 
     private final int WIDTH, HEIGHT;
@@ -21,6 +23,7 @@ public class Screen {
         for (int y = 0; y < imageHeight; y++) {
             for (int x = 0; x < imageWidth; x++) {
                 if (x + startX > WIDTH || x  < 0 || y + startY > HEIGHT || y < 0) continue;
+                if (image[x + y * imageWidth] == ImageUtils.TRANSPARENT) continue;
                 pixels[x + startX + (y + startY) * WIDTH] = image[x + y * imageWidth];
             }
         }

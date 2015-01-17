@@ -8,9 +8,9 @@ import java.awt.image.DataBufferInt;
 
 public class GameLoop extends Canvas implements Runnable {
 
-    public static final int WIDTH = 300;
+    public static final int WIDTH = 600;
     public static final int HEIGHT = WIDTH / 16 * 9;
-    public static final int SCALE = 3;
+    public static final int SCALE = 2;
 
     JFrame frame;
     JTextField textField;
@@ -78,7 +78,8 @@ public class GameLoop extends Canvas implements Runnable {
 
         Graphics g = bs.getDrawGraphics();
 
-        screen.clearScreen(120511);
+        screen.clearScreen(230851);
+graphics.Font.drawString(screen, "Testing The Font Out", 100, 100);
         int[] screenPixels = screen.getPixels();
         for (int i = 0; i < pixels.length; i++) {
             pixels[i] = screenPixels[i];
