@@ -88,7 +88,7 @@ public class GameLoop extends Canvas implements Runnable {
     }
 
     public void update() {
-
+        chatGUI.update();
     }
     public void render() {
         BufferStrategy bs = getBufferStrategy();

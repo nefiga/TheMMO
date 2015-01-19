@@ -7,7 +7,7 @@ public class TextBox extends GUIComponent{
 
     private String text = "This is a text field";
     private boolean hasFocusTimer;
-    private int loseFocusDelay = 15 * 60;
+    private int loseFocusDelay = 10 * 60;
     private int focusTimer = 0;
 
     public TextBox(int x, int y, int width, int height) {
@@ -29,6 +29,7 @@ public class TextBox extends GUIComponent{
     }
 
     public void setText(String text) {
+        onFocusChanged(false);
         this.text = text;
     }
 }

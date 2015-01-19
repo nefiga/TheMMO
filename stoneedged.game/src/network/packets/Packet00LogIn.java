@@ -11,6 +11,6 @@ public class Packet00LogIn extends Packet{
 
     @Override
     public byte[] getPacketData() {
-        return (type.toString() + userName).getBytes();
+        return (type.toString() + SEPARATOR + userName).getBytes();
     }
 }

@@ -2,6 +2,8 @@ package network.packets;
 
 public abstract class Packet {
 
+    public static final String SEPARATOR = ",";
+
     protected PacketType type;
 
     public Packet(PacketType type) {

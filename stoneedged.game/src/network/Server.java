@@ -22,7 +22,7 @@ public class Server extends Thread {
     public Server(GameLoop game) {
         this.game = game;
         try {
-            this.socket = new DatagramSocket(1313);
+            this.socket = new DatagramSocket(1351);
         } catch (SocketException e) {
             e.printStackTrace();
         }
@@ -36,7 +36,7 @@ public class Server extends Thread {
 
             try {
                 socket.receive(packet);
-                translateData(new String(packet.getData()), socket.getInetAddress(), socket.getPort());
+                translateData(new String(packet.getData()),packet.getAddress(), packet.getPort());
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -60,6 +60,7 @@ public class Server extends Thread {
     }
 
     public void sendToClients(String stringData, String excludeUser) {
+        System.out.println("Server sending to client");
         byte[] data = stringData.getBytes();
         for (String user : userIP.keySet()) {
             if (user.equals(excludeUser))

@@ -11,6 +11,6 @@ public class Packet01Message extends Packet{
 
     @Override
     public byte[] getPacketData() {
-        return message.getBytes();
+        return (type.toString() + SEPARATOR + message).getBytes();
     }
 }
