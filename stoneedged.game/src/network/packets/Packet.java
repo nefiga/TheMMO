@@ -4,6 +4,8 @@ public abstract class Packet {
 
     public static final String SEPARATOR = ",";
 
+    static String userName;
+
     protected PacketType type;
 
     public Packet(PacketType type) {

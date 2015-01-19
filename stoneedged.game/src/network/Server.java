@@ -45,8 +45,8 @@ public class Server extends Thread {
 
     public void translateData(String stringData, InetAddress IP, int port) {
 
-        String type = stringData.substring(0, 2);
-        switch(PacketType.getType(type)) {
+        String strings[] = stringData.split(",");
+        switch(PacketType.getType(strings[0])) {
             case LOG_IN:
                 connect(stringData, IP, port);
                 break;
@@ -54,13 +54,13 @@ public class Server extends Thread {
                 disconnect(stringData);
                 break;
             default:
-                sendToClients(stringData, null);
+                sendToClients(stringData, strings[1]);
                 break;
         }
     }
 
     public void sendToClients(String stringData, String excludeUser) {
-        System.out.println("Server sending to client");
+        System.out.println("Server sending to client. Excluding " +  excludeUser);
         byte[] data = stringData.getBytes();
         for (String user : userIP.keySet()) {
             if (user.equals(excludeUser))

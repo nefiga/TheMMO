@@ -29,6 +29,7 @@ public class ClientTranslator {
 
                 break;
             case MESSAGE:
+                System.out.println("Translator added message");
                 game.addMessage(stringData.substring(2));
                 break;
         }
