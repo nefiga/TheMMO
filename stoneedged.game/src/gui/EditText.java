@@ -28,11 +28,21 @@ public class EditText extends GUIComponent implements Input.TypingListener{
         if (focus)
             Input.setTypingListener(this);
     }
+    
+    public void backSpace() {
+        if (text.length() > 0)
+            text.substring(0, text.length() -1);
+    }
 
     @Override
     public void onKeyPressed(char character) {
-        if (hasFocus)
-            text.append(character);
+        if (hasFocus) {
+            if (character == 127)
+                backSpace();
+            else
+                text.append(character);
+
+        }
     }
 
     @Override

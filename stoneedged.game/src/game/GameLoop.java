@@ -46,6 +46,7 @@ public class GameLoop extends Canvas implements Runnable {
         chatGUI = new GUI(0, 0, 200, 30);
         chatGUI.addComponent(chatView);
         chatGUI.addComponent(chat);
+        chat.setFocus(true);
     }
 
     @Override

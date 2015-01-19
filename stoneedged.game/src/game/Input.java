@@ -62,7 +62,6 @@ public class Input implements KeyListener, MouseListener {
 
     public void presMouse(int button , int x, int y) {
         if (mouseInputListener != null) {
-            System.out.println("Pressing Mouse. Button: " + button);
             if (!mouseHolding[button]) {
                 if (button == 0)
                     mouseInputListener.onLeftButtonPressed(x, y);
