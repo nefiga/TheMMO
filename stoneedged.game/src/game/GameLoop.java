@@ -127,6 +127,7 @@ public class GameLoop extends Canvas implements Runnable {
 
     public void startClient(String userName, String ip) {
         client = new Client(this, userName, ip, 1351);
+        client.start();
     }
 
     public void startServer() {

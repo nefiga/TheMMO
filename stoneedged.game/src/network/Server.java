@@ -1,6 +1,7 @@
 package network;
 
 import game.GameLoop;
+import network.packets.Packet;
 import network.packets.PacketType;
 
 import java.io.IOException;
@@ -44,8 +45,8 @@ public class Server extends Thread {
     }
 
     public void translateData(String stringData, InetAddress IP, int port) {
-
-        String strings[] = stringData.split(",");
+        System.out.println("Sever String Data " + stringData);
+        String strings[] = stringData.trim().split(Packet.SEPARATOR);
         switch(PacketType.getType(strings[0])) {
             case LOG_IN:
                 connect(stringData, IP, port);
@@ -60,12 +61,11 @@ public class Server extends Thread {
     }
 
     public void sendToClients(String stringData, String excludeUser) {
-        System.out.println("Server sending to client. Excluding " +  excludeUser);
         byte[] data = stringData.getBytes();
         for (String user : userIP.keySet()) {
             if (user.equals(excludeUser))
                 continue;
-
+            System.out.println("Server sending to client " + user + " Excluding " + excludeUser);
             try {
                 DatagramPacket packet = new DatagramPacket(data, data.length, userIP.get(user), userPort.get(user));
                 socket.send(packet);
@@ -76,7 +76,8 @@ public class Server extends Thread {
     }
 
     public void connect(String stringData, InetAddress IP, int port) {
-        String[] rows = stringData.split(",");
+        System.out.println("Log in IP " + IP.toString() + " Log in port " + port);
+        String[] rows = stringData.trim().split(Packet.SEPARATOR);
         String userName = rows[1];
 
         userIP.put(userName, IP);
@@ -86,7 +87,7 @@ public class Server extends Thread {
     }
 
     public void disconnect(String stringData) {
-        String[] rows = stringData.split(",");
+        String[] rows = stringData.trim().split(Packet.SEPARATOR);
         String user = rows[1];
 
         userIP.remove(user);

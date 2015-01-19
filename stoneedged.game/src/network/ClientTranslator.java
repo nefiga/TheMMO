@@ -16,7 +16,8 @@ public class ClientTranslator {
 
     public void translatePacket(byte[] data) {
         String stringData = new String(data);
-        PacketType type = PacketType.getType(stringData.substring(0, 2));
+        String[] strings = stringData.split(Packet.SEPARATOR);
+        PacketType type = PacketType.getType(strings[0]);
 
         switch (type) {
             case LOG_IN:
@@ -29,8 +30,7 @@ public class ClientTranslator {
 
                 break;
             case MESSAGE:
-                System.out.println("Translator added message");
-                game.addMessage(stringData.substring(2));
+                game.addMessage(strings[1] + ": " + strings[2]);
                 break;
         }
     }

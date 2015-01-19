@@ -34,14 +34,16 @@ public class Client extends Thread{
 
     @Override
     public void run() {
-        byte[] data = new byte[1024];
-        DatagramPacket packet = new DatagramPacket(data, data.length);
+        while (true) {
+            byte[] data = new byte[1024];
+            DatagramPacket packet = new DatagramPacket(data, data.length);
 
-        try {
-            socket.receive(packet);
-            translator.translatePacket(packet.getData());
-        } catch (IOException e) {
-            e.printStackTrace();
+            try {
+                socket.receive(packet);
+                translator.translatePacket(packet.getData());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
