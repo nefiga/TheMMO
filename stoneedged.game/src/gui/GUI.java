@@ -1,11 +1,12 @@
 package gui;
 
+import game.Input;
 import game.Screen;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class GUI {
+public class GUI implements Input.MouseInputListener {
 
     // Should have a position and size on the screen
     private int width, height;
@@ -25,6 +26,7 @@ public class GUI {
         this.y = y;
         this.width = width;
         this.height = height;
+        Input.setMouseInputListener(this);
     }
 
     public void update() {
@@ -46,6 +48,7 @@ public class GUI {
 
     public void addComponent(GUIComponent component) {
         components.add(component);
+        component.setParent(this);
     }
 
     public boolean inBounds(int xPosition, int yPosition) {
@@ -62,6 +65,11 @@ public class GUI {
 
     public void setFocus(boolean focus) {
         hasFocus = focus;
+        onFocusChanged(focus);
+    }
+
+    public void onFocusChanged(boolean focus) {
+
     }
 
     //--------Getters---------
@@ -88,5 +96,31 @@ public class GUI {
 
     public boolean isVisible() {
         return isVisible;
+    }
+
+    @Override
+    public void onLeftButtonPressed(int x, int y) {
+        System.out.println("Pressing on GUI");
+        if (inBounds(x, y)) {
+            setFocus(true);
+
+            for (GUIComponent component : components)
+                component.press(x, y);
+        }
+    }
+
+    @Override
+    public void onLeftButtonHolding(int x, int y) {
+
+    }
+
+    @Override
+    public void onRightButtonPressed(int x, int y) {
+
+    }
+
+    @Override
+    public void onRightButtonHolding(int x, int y) {
+
     }
 }

@@ -1,12 +1,16 @@
 package gui;
 
+import game.Input;
 import game.Screen;
+import graphics.Font;
 import graphics.SpriteSheet;
 
-public class EditText extends GUIComponent{
+public class EditText extends GUIComponent implements Input.TypingListener{
 
     private final int TILE_SIZE = 8;
     private int[] corner, side, middle;
+
+    private StringBuilder text = new StringBuilder("");
 
     public EditText(int x, int y, int width, int height) {
         super(x, y, width * 8, height * 8);
@@ -17,9 +21,22 @@ public class EditText extends GUIComponent{
 
     @Override
     public void render(Screen screen) {
-        screen.renderOnScreen(corner, x - 15, y, TILE_SIZE, TILE_SIZE);
-        screen.renderOnScreen(corner, x, y, TILE_SIZE, TILE_SIZE, Screen.HORIZONTAL_180);
-        screen.renderOnScreen(corner, x + 15, y, TILE_SIZE, TILE_SIZE, Screen.VERTICAL_180);
-        screen.renderOnScreen(corner, x + 30, y, TILE_SIZE, TILE_SIZE, Screen.BOTH_180);
+        Font.drawString(screen, text.toString(), x, y);
+    }
+
+    public void onFocusChanged(boolean focus) {
+        if (focus)
+            Input.setTypingListener(this);
+    }
+
+    @Override
+    public void onKeyPressed(char character) {
+        if (hasFocus)
+            text.append(character);
+    }
+
+    @Override
+    public void onKeyHolding(char character) {
+
     }
 }

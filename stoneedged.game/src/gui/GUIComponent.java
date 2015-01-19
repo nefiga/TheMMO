@@ -32,20 +32,29 @@ public class GUIComponent {
         return xPosition > x && xPosition < x + width && yPosition > y && yPosition < y + height;
     }
 
-    public void addToGUI(GUI gui) {
+    public void setParent(GUI gui) {
         x = x + gui.getX();
         y = y + gui.getY();
-        gui.addComponent(this);
     }
 
     //----------Setters-----------
 
     public void setFocus(boolean focus) {
         hasFocus = focus;
+        onFocusChanged(focus);
+    }
+
+    public void onFocusChanged(boolean focus) {
+
     }
 
     public void setVisible(boolean visible) {
         isVisible = visible;
+    }
+
+    public void press(int x, int y) {
+        if (inBounds(x, y ))
+            onFocusChanged(true);
     }
 
     //------------Getters------------

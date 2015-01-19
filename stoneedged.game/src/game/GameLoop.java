@@ -1,6 +1,8 @@
 package game;
 
 import gui.EditText;
+import gui.GUI;
+import gui.TextBox;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,9 +17,12 @@ public class GameLoop extends Canvas implements Runnable {
     public static final int SCALE = 2;
 
     JFrame frame;
-    JTextField textField;
     Thread gameThread;
     Screen screen;
+    Input input;
+    TextBox chatView;
+    EditText chat;
+    GUI chatGUI;
 
     boolean running;
     Dimension size;
@@ -33,6 +38,14 @@ public class GameLoop extends Canvas implements Runnable {
 
     public void init() {
         screen = new Screen(WIDTH, HEIGHT);
+        input = new Input();
+        frame.addKeyListener(input);
+        frame.addMouseListener(input);
+        chatView = new TextBox(5, 20, 200, 10);
+        chat = new EditText(5, 5, 200, 100);
+        chatGUI = new GUI(0, 0, 200, 30);
+        chatGUI.addComponent(chatView);
+        chatGUI.addComponent(chat);
     }
 
     @Override
@@ -70,8 +83,6 @@ public class GameLoop extends Canvas implements Runnable {
     public void update() {
 
     }
-
-    public EditText editText = new EditText(250, 250, 3, 3);
     public void render() {
         BufferStrategy bs = getBufferStrategy();
         if (bs == null) {
@@ -83,8 +94,7 @@ public class GameLoop extends Canvas implements Runnable {
 
         screen.clearScreen(230851);
 
-        editText.render(screen);
-        graphics.Font.drawString(screen, "Testing The Font Out", 100, 100);
+        chatGUI.render(screen);
 
         int[] screenPixels = screen.getPixels();
         for (int i = 0; i < pixels.length; i++) {
