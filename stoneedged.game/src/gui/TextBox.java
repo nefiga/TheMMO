@@ -27,4 +27,8 @@ public class TextBox extends GUIComponent{
     public void onFocusChanged(boolean focus) {
         focusTimer = 0;
     }
+
+    public void setText(String text) {
+        this.text = text;
+    }
 }

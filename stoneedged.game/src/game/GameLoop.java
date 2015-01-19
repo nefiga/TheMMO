@@ -3,6 +3,8 @@ package game;
 import gui.EditText;
 import gui.GUI;
 import gui.TextBox;
+import network.Client;
+import network.Server;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,6 +17,9 @@ public class GameLoop extends Canvas implements Runnable {
     public static final int WIDTH = 600;
     public static final int HEIGHT = WIDTH / 16 * 9;
     public static final int SCALE = 2;
+
+    Server server;
+    Client client;
 
     JFrame frame;
     Thread gameThread;
@@ -41,6 +46,7 @@ public class GameLoop extends Canvas implements Runnable {
         input = new Input();
         frame.addKeyListener(input);
         frame.addMouseListener(input);
+
         chatView = new TextBox(5, 20, 200, 10);
         chat = new EditText(5, 5, 200, 100);
         chatGUI = new GUI(0, 0, 200, 30);
@@ -107,18 +113,25 @@ public class GameLoop extends Canvas implements Runnable {
         bs.show();
     }
 
+    public void addMessage(String message) {
+        chatView.setText(message);
+    }
+
     public void start() {
         gameThread = new Thread(this, "Game Thread");
         gameThread.start();
         running = true;
+
+        startClient("Nefiga", "192.168.1.3");
     }
 
     public void startClient(String userName, String ip) {
-
+        client = new Client(this, userName, ip, 1351);
     }
 
     public void startServer() {
-
+        server = new Server(this);
+        server.start();
     }
 
     public static void main(String[] args) {
@@ -129,6 +142,9 @@ public class GameLoop extends Canvas implements Runnable {
         game.frame.pack();
         game.frame.setLocationRelativeTo(null);
         game.frame.setVisible(true);
+        if (JOptionPane.showConfirmDialog(game, "Start Sever?") == 0) {
+            game.startServer();
+        }
         game.start();
     }
 }

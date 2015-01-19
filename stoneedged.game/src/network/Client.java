@@ -1,5 +1,6 @@
 package network;
 
+
 import game.GameLoop;
 import network.packets.Packet00LogIn;
 
@@ -16,7 +17,7 @@ public class Client extends Thread{
     int port;
 
     public Client(GameLoop game, String userName, String ipAddress, int port) {
-        translator = new ClientTranslator(game);
+        translator = new ClientTranslator(game, this);
         this.userName = userName;
 
         try {
@@ -45,6 +46,7 @@ public class Client extends Thread{
     }
 
     public void sendData(byte[] data) {
+        System.out.println("Sending Data");
         DatagramPacket packet = new DatagramPacket(data, data.length, IP, port);
 
         try {

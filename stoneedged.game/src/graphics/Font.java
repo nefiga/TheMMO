@@ -26,25 +26,25 @@ public class Font {
 
         for (int i = 0; i < chars.length; i++) {
             int[] pixels = getCharImage(chars[i]);
-            screen.renderOnScreen(pixels, startX  + i * fontGap, startY, fontSize,  fontSize);
+            if (pixels != null)
+                screen.renderOnScreen(pixels, startX  + i * fontGap, startY, fontSize,  fontSize);
         }
     }
 
     public static int[] getCharImage(int character) {
-        int position = 0;
 
         // 0 - 9
         if (character > 47 && character < 58)
-            position = character - 48;
+            return image[character - 48];
         // upper case a - z
         else if (character > 64 && character < 91)
-            position = character - 55;
+            return image[character - 55];
         // lower case a - x
         else if (character > 96 && character < 123)
-            position = character - 87;
+            return image[character - 87];
         else if (character == 32)
-            position = 36;
+            return image[36];
 
-        return image[position];
+        return null;
     }
 }

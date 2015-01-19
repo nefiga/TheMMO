@@ -88,7 +88,6 @@ public class Input implements KeyListener, MouseListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        System.out.println("Pressing Key: " + e.getKeyCode());
         for (Action action : keyActions) {
             if (e.getKeyCode() == action.getKey())
                 action.press();

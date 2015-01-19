@@ -4,6 +4,10 @@ import game.Input;
 import game.Screen;
 import graphics.Font;
 import graphics.SpriteSheet;
+import network.ClientTranslator;
+import network.packets.Packet01Message;
+
+import java.awt.event.KeyEvent;
 
 public class EditText extends GUIComponent implements Input.TypingListener{
 
@@ -31,14 +35,20 @@ public class EditText extends GUIComponent implements Input.TypingListener{
     
     public void backSpace() {
         if (text.length() > 0)
-            text.substring(0, text.length() -1);
+            text.deleteCharAt(text.length() - 1);
+    }
+
+    public void postText(String text) {
+        ClientTranslator.sendPacket(new Packet01Message(text));
     }
 
     @Override
     public void onKeyPressed(char character) {
         if (hasFocus) {
-            if (character == 127)
+            if (character == KeyEvent.VK_BACK_SPACE)
                 backSpace();
+            else if (character == KeyEvent.VK_ENTER)
+                postText(text.toString());
             else
                 text.append(character);
 
